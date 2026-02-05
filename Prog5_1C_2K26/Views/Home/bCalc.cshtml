@@ -1,8 +1,7 @@
 ﻿@{
-    ViewBag.Title = "Pagina de cálculadora básica";
+    ViewBag.Title = "Pagina de calculadora básica";
 }
 <h1>Bienvenido a la @ViewData["Title"]</h1>
-
 
 <form asp-controller="Home" asp-action="bcalc" method="post">
     Numero 1 : <input name="n1" type="text" /> <br /><br />
@@ -12,15 +11,49 @@
     }
  /> <br /><br />
 
-    <input type="submit" value="+" formaction="Suma" /> &nbsp;&nbsp;&nbsp;
-    <input type="submit" value="-" formaction="Resta" /> &nbsp;&nbsp;&nbsp;
-    <input type="submit" value="x" formaction="Multiplicacion" /> &nbsp;&nbsp;&nbsp;
-    <input type="submit" value="/" formaction="Division" /> &nbsp;&nbsp;&nbsp;
-    <input type="submit" value="√" formaction="RaizCuadrada" /> &nbsp;&nbsp;&nbsp;
-    <input type="submit" value="%" formaction="Modulo" /> &nbsp;&nbsp;&nbsp;
-
+    <button type="submit" class="btn btn-primary" formaction="Suma">
+        <i class="bi bi-plus-circle"></i> Sumar
+    </button> &nbsp;&nbsp;&nbsp;
+    <button type="submit" class="btn btn-warning" formaction="Resta">
+        <i class="bi bi-dash-circle"></i> Restar
+    </button> &nbsp;&nbsp;&nbsp;
+    <button type="submit" class="btn btn-success" formaction="Multiplicacion">
+        <i class="bi bi-x-circle"></i> Multiplicar
+    </button> &nbsp;&nbsp;&nbsp;
+    <button type="submit" class="btn btn-danger" formaction="Division">
+        <i class="bi bi-slash-circle"></i> Dividir
+    </button> &nbsp;&nbsp;&nbsp;
+    <button type="submit" class="btn btn-info" formaction="RaizCuadrada">
+        <i class="bi bi-square-root-alt"></i> Raíz Cuadrada
+    </button> &nbsp;&nbsp;&nbsp;
+    <button type="submit" class="btn btn-secondary" formaction="Modulo">
+        <i class="bi bi-percent"></i> Módulo
+    </button> &nbsp;&nbsp;&nbsp;
 </form>
 
 <h2 style="color:crimson; background-color:darksalmon; padding:10px;">
     @ViewBag.Result
 </h2>
+
+@section Scripts {
+    <script>
+        // Configurar toastr para que aparezca en el centro de la página
+        toastr.options = {
+            "positionClass": "toast-center",
+            "timeOut": "3000"
+        };
+
+        // Notificación de prueba para verificar toastr.js
+        console.log('Ejecutando script de toastr.js');
+        toastr.info('Notificación de prueba', 'Información');
+
+        // Mostrar notificación de éxito usando toastr
+        @if (ViewBag.ShowToast != null && ViewBag.ShowToast == true)
+        {
+            <text>
+                console.log('Mostrando notificación de éxito');
+                toastr.success('Operación realizada con éxito', '¡Éxito!');
+            </text>
+        }
+    </script>
+}
