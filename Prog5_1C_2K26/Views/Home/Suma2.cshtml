@@ -2,13 +2,38 @@
     ViewData["Title"] = "Sumar 2 Números";
 }
 
-
 <h1 class="display-4">Sumando 2 números</h1>
 
 <form asp-controller="Home" asp-action="add2" method="post">
     <span>Ingrese número 1: </span> <input id="t1" type="text" name="tx1" /> <br />
     <span>Ingrese número 2: </span> <input id="t2" type="text" name="tx2" /> <br />
-    <input id="Submit1" type="submit" value="Sumar 2 números" />
+
+    <button type="submit" class="btn btn-primary">
+        <i class="bi bi-calculator"></i> Sumar 2 números
+    </button>
 </form>
 
-<h2>La suma es: @ViewBag.SumResult2</h2>
+@if (@ViewBag.SumResult2 != null)
+{
+    <div class="alert alert-success mt-3">
+        Resultado: @ViewBag.SumResult2
+    </div>
+}
+
+@section Scripts {
+    <script>
+        // Configurar toastr para que aparezca en el centro de la página
+        toastr.options = {
+            "positionClass": "toast-center",
+            "timeOut": "3000"
+        };
+
+        // Mostrar notificación de éxito usando toastr
+        @if (ViewBag.ShowToast != null && ViewBag.ShowToast == true)
+        {
+            <text>
+                toastr.success('Cálculo realizado con éxito', '¡Éxito!');
+            </text>
+        }
+    </script>
+}

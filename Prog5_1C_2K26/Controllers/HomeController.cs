@@ -8,6 +8,7 @@ namespace Prog5_1C_2K26.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -15,20 +16,32 @@ namespace Prog5_1C_2K26.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.ShowToast = true;
             return View();
         }
 
         #region Suma2
         public IActionResult Suma2()
         {
+            
+            ViewBag.ShowToast = true; // Pasar la variable a la vista
             return View();
         }
         public IActionResult add2()
         {
-            int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
-            int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
-            int result = num1 + num2;
-            ViewBag.SumResult2 = result.ToString();
+            try
+            {
+                int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
+                int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
+                int result = num1 + num2;
+                ViewBag.SumResult2 = result.ToString();
+                ViewBag.ShowToast = true; // Mostrar notificación de éxito
+            }
+            catch (Exception)
+            {
+                ViewBag.SumResult2 = "Error en los datos ingresados.";
+                ViewBag.ShowToast = false; // No mostrar notificación
+            }
             return View("Suma2");
         }
         #endregion Suma2
